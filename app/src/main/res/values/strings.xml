@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DiceSimulator</string>
+
+    <string name="default_number_of_dice">3</string>
+    <string name="default_number_of_sides">6</string>
+
+    <string name="number_of_dice">Number of dice:</string>
+    <string name="number_of_sides">Number of sides:</string>
+    <string name="roll">Roll!</string>
 </resources>
