@@ -9,6 +9,10 @@ public class Dice {
     private int maxPoint = 0;
     private int currentPoint = 0;
 
+    public Dice(int currentPoint, int maxPoint){
+        this.currentPoint = currentPoint;
+        this.maxPoint = maxPoint;
+    }
 
     public int getMaxPoint() {
         return maxPoint;

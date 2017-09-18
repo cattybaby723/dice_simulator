@@ -71,7 +71,7 @@ public class MainActivity extends LifecycleActivity implements View.OnClickListe
             @Override
             public void onChanged(@Nullable Integer integer) {
                 if (integer == null) return;
-                mTotalPoint.setText(integer);
+                mTotalPoint.setText(String.valueOf(integer));
             }
         });
     }

@@ -1,8 +1,5 @@
 package angela_hu.dicesimulator.model;
 
-import org.json.JSONObject;
-
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -18,5 +15,5 @@ import retrofit2.http.QueryMap;
 public interface RealRandomService {
 
     @GET("integers")
-    Call<Number> listTextNumber(@QueryMap Map<String, String> options);
+    Call<String> listTextNumber(@QueryMap Map<String, String> options);
 }

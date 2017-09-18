@@ -3,12 +3,14 @@ package angela_hu.dicesimulator.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
 import angela_hu.dicesimulator.model.Dice;
-import angela_hu.dicesimulator.model.RandomDiceAsyncTask;
+import angela_hu.dicesimulator.model.RealNumberRepository;
 
 /**
  * @author anrou_hu
@@ -23,6 +25,8 @@ public class MainViewModel extends ViewModel {
 
     private MediatorLiveData<List<Dice>> mDices = new MediatorLiveData<>();
     private MutableLiveData<Integer> mTotalPoint = new MutableLiveData<>();
+
+    private RealNumberRepository mNumberRepo = new RealNumberRepository();
 
 
     public void setNumberOfSides(int numberOfSides) {
@@ -42,21 +46,30 @@ public class MainViewModel extends ViewModel {
     }
 
 
-    public int calculateTotalPoint() {
+
+    public void rollDice() {
+        mDices.addSource(mNumberRepo.getRealNumberDices(mNumberOfDice, mNumberOfSides), new Observer<List<Dice>>() {
+            @Override
+            public void onChanged(@Nullable List<Dice> dices) {
+                mDices.setValue(dices);
+                calculateTotalPoint();
+            }
+        });
+    }
+
+
+    private void calculateTotalPoint() {
         List<Dice> dices = mDices.getValue();
-        if (dices == null) return 0;
+        if (dices == null) {
+            mTotalPoint.setValue(0);
+            return;
+        }
 
         int totalPoint = 0;
         for (Dice dice : dices) {
             totalPoint += dice.getCurrentPoint();
         }
 
-        return totalPoint;
-    }
-
-
-    public void rollDice() {
-        RandomDiceAsyncTask task = new RandomDiceAsyncTask(mNumberOfSides, mNumberOfDice);
-        task.execute();
+        mTotalPoint.setValue(totalPoint);
     }
 }
