@@ -1,6 +1,7 @@
 package angela_hu.dicesimulator.model;
 
 import android.arch.lifecycle.MediatorLiveData;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -50,8 +51,9 @@ public class RealNumberRepository {
 
 
     private List<Dice> parsePoints(int numberOfSides, String responseBody) {
-        String[] values = responseBody.split("\n");
         List<Dice> dices = new ArrayList<>();
+        if (TextUtils.isEmpty(responseBody)) return dices;
+        String[] values = responseBody.split("\n");
         for (String value : values) {
             Dice dice = new Dice(Integer.valueOf(value), numberOfSides);
             dices.add(dice);

@@ -25,6 +25,7 @@ public class MainViewModel extends ViewModel {
 
     private MediatorLiveData<List<Dice>> mDices = new MediatorLiveData<>();
     private MutableLiveData<Integer> mTotalPoint = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsProgressing = new MutableLiveData<>();
 
     private RealNumberRepository mNumberRepo = new RealNumberRepository();
 
@@ -45,14 +46,19 @@ public class MainViewModel extends ViewModel {
         return mTotalPoint;
     }
 
+    public LiveData<Boolean> isProgressing() {
+        return mIsProgressing;
+    }
 
 
     public void rollDice() {
+        mIsProgressing.setValue(true);
         mDices.addSource(mNumberRepo.getRealNumberDices(mNumberOfDice, mNumberOfSides), new Observer<List<Dice>>() {
             @Override
             public void onChanged(@Nullable List<Dice> dices) {
                 mDices.setValue(dices);
                 calculateTotalPoint();
+                mIsProgressing.setValue(false);
             }
         });
     }

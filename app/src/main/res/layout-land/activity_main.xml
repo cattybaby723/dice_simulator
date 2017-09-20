@@ -5,14 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    android:padding="@dimen/main_padding">
+    android:padding="@dimen/default_margin">
 
+    <android.support.constraint.Guideline
+        android:id="@+id/centerGuideLine"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintGuide_percent="50"/>
 
     <TextView
         android:id="@+id/numberOfSidesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/double_margin"
+        android:layout_marginStart="@dimen/double_margin"
         android:layout_marginTop="@dimen/triple_margin"
         android:text="@string/number_of_sides"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +46,9 @@
         android:layout_marginEnd="@dimen/default_margin"
         android:layout_marginTop="@dimen/quad_margin"
         android:text="@string/number_of_dice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfSidesText"/>
+        app:layout_constraintStart_toEndOf="@+id/numberOfSides"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/numberOfDice"
@@ -83,7 +90,7 @@
         android:id="@+id/totalPoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/triple_margin"
+        android:layout_marginBottom="@dimen/default_margin"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/roll"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,7 +100,7 @@
         android:id="@+id/roll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/double_margin"
         android:text="@string/roll"
         android:background="@drawable/bg_btn"
         app:layout_constraintBottom_toBottomOf="parent"
