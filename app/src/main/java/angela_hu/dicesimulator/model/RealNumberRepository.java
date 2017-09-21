@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,6 +21,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RealNumberRepository {
 
+    private final static String TAG = RealNumberRepository.class.getSimpleName();
     private final static String REAL_RANDOM_WEB_HOST = "https://www.random.org";
 
 
@@ -37,7 +39,7 @@ public class RealNumberRepository {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 dices.setValue(parsePoints(numberOfSides, response.body()));
-                Log.d("", "onResponse body:" + response.body());
+                Log.d(TAG, "onResponse body:" + response.body());
             }
 
             @Override
@@ -48,7 +50,6 @@ public class RealNumberRepository {
 
         return dices;
     }
-
 
     private List<Dice> parsePoints(int numberOfSides, String responseBody) {
         List<Dice> dices = new ArrayList<>();
@@ -61,5 +62,30 @@ public class RealNumberRepository {
 
         return dices;
     }
+
+
+    public MediatorLiveData<List<Dice>> getRandomNumberDices(int numberOfDice, int numberOfSides) {
+        final MediatorLiveData<List<Dice>> dices = new MediatorLiveData<>();
+        List<Dice> diceList = generateRandomNumber(numberOfDice, numberOfSides);
+
+        dices.setValue(diceList);
+        return dices;
+    }
+
+    private List<Dice> generateRandomNumber(int numberOfDice, int numberOfSides) {
+        List<Dice> dices = new ArrayList<>();
+
+        Random random = new Random();
+        for (int i = 0; i < numberOfDice; i++) {
+            int value = random.nextInt(numberOfSides);
+            Dice dice = new Dice(value, numberOfSides);
+            dices.add(dice);
+        }
+
+        return dices;
+    }
+
+
+
 
 }
