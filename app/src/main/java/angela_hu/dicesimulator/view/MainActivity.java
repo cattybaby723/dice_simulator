@@ -160,6 +160,7 @@ public class MainActivity extends LifecycleActivity implements View.OnClickListe
 
     private void rollDice() {
         mViewModel.rollDice();
+        Log.d(TAG, "rollDice");
     }
 
     private void hideSoftInput() {
@@ -167,6 +168,7 @@ public class MainActivity extends LifecycleActivity implements View.OnClickListe
         if (view == null) return;
         InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
         Log.d(TAG, "hideSoftKeyboard");
     }
 
